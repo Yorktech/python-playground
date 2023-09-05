@@ -8,18 +8,20 @@ import csv
 # get page data
 async def extract_page_html():
     # Launch the browser
-    browser = await launch()
+    browser = await launch(headless=False)
 
     # Create a new page
     page = await browser.newPage()
     dropdown_selector = '#perpage'
 
     # Navigate to the desired URL
-    await page.goto('"https://www.scotchwhiskyauctions.com/auctions/188-the-143rd-auction/?page=1')
+    await page.goto('https://www.scotchwhiskyauctions.com/auctions/188-the-143rd-auction/?page=1')
     option_value = 500
     # Wait for any necessary page loading or rendering
     await page.waitForSelector(dropdown_selector)
     await page.waitForSelector(dropdown_selector, option_value)
+    await asyncio.sleep(2)
+    
     # Get the HTML content of the page
     content = await page.content()
 

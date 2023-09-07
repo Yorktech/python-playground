@@ -1,34 +1,14 @@
+import json
 import azure.functions as func
 import logging
 from bs4 import BeautifulSoup
-import json
+import requests
 
+
+#************************************************************************************
 app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
-
-@app.route(route="SimpleTest")
-def SimpleTest(req: func.HttpRequest) -> func.HttpResponse:
-    logging.info('Python HTTP trigger function processed a request.')
-
-    name = req.params.get('name')
-    if not name:
-        try:
-            req_body = req.get_json()
-        except ValueError:
-            pass
-        else:
-            name = req_body.get('name')
-
-    if name:
-        return func.HttpResponse(f"Hello, {name}. This HTTP triggered function executed successfully.")
-    else:
-        return func.HttpResponse(
-             "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
-             status_code=200
-        )
-
-@app.route(route="lincolnfsd", auth_level=func.AuthLevel.FUNCTION)
-@app.route(route="lincolnfsd")
-def lincolnfsd(req: func.HttpRequest) -> func.HttpResponse:
+@app.route(route="LincolnFSD")
+def LincolnFSD(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
 
     url = req.params.get('url')
